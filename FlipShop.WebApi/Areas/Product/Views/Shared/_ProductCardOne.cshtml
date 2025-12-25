@@ -1,0 +1,17 @@
+﻿@model FlipShop.Core.Entities.Product
+
+<a asp-action="Details" asp-controller="Product" asp-area="" asp-route-id="@Model.Product_ID">
+    <div class="col-md-3 col-sm-6">
+        <div class="product-grid new">
+            <div class="product-image">
+                <div class="image">
+                    <img class="pic-1" src="@Url.Content(Model.Product_ImagePath)">
+                </div>
+                <span class="product-new-label">@Model.Product_Name</span>
+
+                <div class="price">OMR @Model.Product_Price</div>
+            </div>
+
+        </div>
+    </div>
+</a>

@@ -1,0 +1,200 @@
+﻿@model FlipShop.Core.Contract.OrderDetailsModel
+
+<div class="container mt-5 mb-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+
+
+                <div class="text-left logo p-2 px-5">
+                    <img src="https://i.imgur.com/2zDU056.png" width="50">
+                </div>
+
+                <div class="invoice p-5">
+                    <h5>Your order Confirmed!</h5>
+                    <span class="font-weight-bold d-block mt-4">Hello, @User.Identity.Name</span>
+                    <span>You order has been confirmed and will be shipped in next two days!</span>
+                    <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+
+                        <table class="table table-borderless">
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="py-2">
+
+                                            <span class="d-block text-muted">Order Date</span>
+                                            <span>01 November, 2022</span>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="py-2">
+
+                                            <span class="d-block text-muted">Order No</span>
+                                            <span>MT12332345</span>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="py-2">
+
+                                            <span class="d-block text-muted">Payment</span>
+                                            <span><img src="https://img.icons8.com/color/48/000000/mastercard.png" width="20" /></span>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="py-2">
+
+                                            <span class="d-block text-muted">Shiping Address</span>
+                                            <span>@Model.address.AddressLine1</span>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    <div class="product border-bottom table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                                @if (Model.customerOrderProducts.CartItems.Any())
+                                {
+                                    foreach (var item in Model.customerOrderProducts.CartItems)
+                                    {
+                                        <tr>
+                                            <td width="20%">
+
+                                                <img src="@Url.Content(item.Product_ImagePath)" width="90">
+
+                                            </td>
+
+                                            <td width="60%">
+                                                <span class="font-weight-bold">@item.Product_Name</span>
+                                                <div class="product-qty">
+                                                    <span class="d-block">Quantity: @item.Product_quantity</span>
+                                                    <span>Color:Dark</span>
+
+                                                </div>
+                                            </td>
+                                            @{
+                                                var subtotal = item.Product_quantity * item.Product_Price;
+                                            }
+                                            <td width="20%">
+                                                <div class="text-right">
+                                                    <span class="font-weight-bold">OMR @subtotal</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row d-flex justify-content-end">
+                        <div class="col-md-5">
+                            <table class="table table-borderless">
+                                <tbody class="totals">
+
+                                    <tr>
+                                        <td>
+                                            <div class="text-left">
+
+                                                <span class="text-muted">Subtotal</span>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                                <span>OMR @Model.customerOrderProducts.SubTotal</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <div class="text-left">
+
+                                                <span class="text-muted">Shipping Fee</span>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                                <span>OMR @Model.customerOrderProducts.ShippingFee</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <div class="text-left">
+
+                                                <span class="text-muted">Tax Fee</span>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                                <span>OMR @Model.customerOrderProducts.Tax</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <div class="text-left">
+
+                                                <span class="text-muted">Discount</span>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                                <span class="text-success">OMR @Model.orderdetails.DiscountByCoupon</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr class="border-top border-bottom">
+                                        <td>
+                                            <div class="text-left">
+
+                                                <span class="font-weight-bold">Total</span>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-right">
+                                                <span class="font-weight-bold">OMR @Model.customerOrderProducts.TotalAmount</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <p>We will be sending shipping confirmation email when the item shipped successfully!</p>
+                    <p class="font-weight-bold mb-0">Thanks for shopping with us!</p>
+                    <span>Flip Shop Team</span>
+                </div>
+                <div class="d-flex justify-content-between footer p-3">
+                    <span>Need Help? visit our <a href="#"> help center</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

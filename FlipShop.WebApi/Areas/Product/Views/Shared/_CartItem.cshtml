@@ -1,0 +1,46 @@
+﻿@using FlipShop.Core.Contract.Cart
+@model CartItemModel
+
+<div class="ibox-content">
+    <div class="table-responsive">
+        <table class="table shoping-cart-table">
+            <tbody>
+                <tr>
+                    <td width="90">
+                        <img src="@Url.Content(Model.Product_ImagePath)" width="90" height="100" />
+
+                    </td>
+                    <td class="desc">
+                        <h3>
+                            <a href="#" class="text-navy">
+                                @Model.Product_Name
+                            </a>
+                        </h3>
+                        <p class="small">
+                            @Model.Product_Description
+                        </p>
+                        <dl class="small m-b-none">
+                            <dt>Description lists</dt>
+                            <dd>A description list is perfect for defining terms.</dd>
+                        </dl>
+
+                        <div class="m-t-sm">
+                            <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
+                            |
+                            <a asp-action="RemoveItem" asp-controller="cart" asp-route-productId="@Model.Product_ID" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
+                        </div>
+                    </td>
+
+                    <td width="130">
+                        <small class="text-muted"> OMR @Model.Product_Price</small>
+                    </td>
+                    <td width="90">
+                        <input type="text" disabled class="form-control" value="@Model.Product_quantity">
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

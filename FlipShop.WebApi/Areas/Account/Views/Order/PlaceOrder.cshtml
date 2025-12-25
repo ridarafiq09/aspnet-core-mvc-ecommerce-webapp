@@ -1,0 +1,377 @@
+﻿@using FlipShop.Core.Contract
+@model FlipShop.Core.Contract.OrderDetailsModel
+<!-- Navbar -->
+
+
+<h3 class="text-center p-3 fw-bolder">Checkout Form</h3>
+
+<!-- Navbar -->
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+        <!-- Heading -->
+        @* <h2 class="my-5 h2 text-center">Checkout form</h2>*@
+
+        <!--Grid row-->
+        <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-8 mb-4">
+
+                <!--Card-->
+                <div class="card">
+
+                    <!--Card content-->
+                    <form class="card-body" method="post">
+
+                        <!--Grid row-->
+                        <div class="row">
+                            @Html.AntiForgeryToken()
+                            <!--Grid column-->
+                            <div class="col-md-6 mb-2">
+
+                                <!--firstName-->
+                                <div class="md-form ">
+                                    <textarea type="text" id="address" asp-for="address.AddressLine1" class="form-control" placeholder="1234 Main St"></textarea>
+                                    <label for="address" class="">Address</label>
+                                </div>
+                                <div>
+                                    <span asp-validation-for="address.AddressLine1" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <!--Grid column-->
+                            <!--Grid column-->
+                            <div class="col-md-6 mb-2">
+
+                                <!--lastName-->
+                                <div class="md-form">
+                                    <textarea type="text" id="address-2" asp-for="address.AddressLine2" class="form-control" placeholder="Apartment or suite"></textarea>
+                                    <label for="address-2" class="">Address 2 (optional)</label>
+                                </div>
+
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+                        <!--email-->
+                        <div class="md-form ">
+                            <input type="text" id="email" class="form-control" placeholder="youremail@example.com">
+                            <label for="email" class="">Email (optional)</label>
+                        </div>
+
+                        <!--address-->
+                        <div class="md-form">
+
+                            <input type="text" id="city" asp-for="address.City" class="form-control" placeholder="">
+                            <label for="address" class="">City</label>
+                            <div>
+                                <span asp-validation-for="address.City" class="text-danger"></span>
+                            </div>
+
+                        </div>
+
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-lg-4 col-md-12 mb-4">
+
+                                <label for="country">Country</label>
+                                <select asp-for="address.Country" class="custom-select d-block w-100" id="country" required>
+                                    <option value="">Choose...</option>
+                                    <option value="Oman">Oman</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid country.
+                                </div>
+
+                            </div>
+                            <!--Grid column-->
+                            <!--Grid column-->
+                            <div class="col-lg-4 col-md-6 mb-4">
+
+                                <label for="state">State</label>
+                                <select asp-for="address.State" class="custom-select d-block w-100" id="state" required>
+                                    <option value="">Choose...</option>
+                                    <option value="Muscat">Muscat</option>
+                                    <option value="Dhofar">Dhofar</option>
+                                    <option value="Ibri">Ibri</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid state.
+                                </div>
+
+                            </div>
+                            <!--Grid column-->
+                            <!--Grid column-->
+                            <div class="col-lg-4 col-md-6 mb-2">
+
+                                <label for="zip">Zip</label>
+                                <input type="text" asp-for="address.Postal" class="form-control" id="zip" placeholder="" value="" required>
+                                <div>
+                                    <span asp-validation-for="address.Postal" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+
+                        <hr>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="same-address">
+                            <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="save-info">
+                            <label class="custom-control-label" for="save-info">Save this information for next time</label>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-block my-3">
+                            <div class="custom-control custom-radio">
+                                <input id="credit" asp-for="orderdetails.Payment_Type" value="@PaymentType.CreditCard" type="radio" class="custom-control-input" checked required>
+                                <label class="custom-control-label" for="credit">Credit card</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="debit" asp-for="orderdetails.Payment_Type" value="@PaymentType.DebitCard" type="radio" class="custom-control-input" required>
+                                <label class="custom-control-label" for="debit">Debit card</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="paypal" asp-for="orderdetails.Payment_Type" type="radio" value="@PaymentType.PayPal" class="custom-control-input" required>
+                                <label class="custom-control-label" for="paypal">Paypal</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-name">Name on card</label>
+                                <input type="text" asp-for="transactionDetails.NameOnCard" class="form-control" id="cc-name" placeholder="" required>
+                                <small class="text-muted">Full name as displayed on card</small>
+                                <div>
+                                    <span asp-validation-for="transactionDetails.NameOnCard" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cc-number">Credit card number</label>
+                                <input type="number" asp-for="transactionDetails.CardNumber" class="form-control" id="cc-number" placeholder="" value="" required>
+                                <div>
+                                    <span asp-validation-for="transactionDetails.CardNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="cc-expiration">Expiration</label>
+                                <input type="date" asp-for="transactionDetails.ExpirationDate" class="form-control" id="cc-expiration" placeholder="" value="" required>
+                                <div>
+                                    <span asp-validation-for="transactionDetails.ExpirationDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="cc-expiration">CVV</label>
+                                <input type="number" asp-for="transactionDetails.CVV" class="form-control" id="cc-cvv" placeholder="" value="" required>
+                                <div>
+                                    <span asp-validation-for="transactionDetails.CVV" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+
+                    </form>
+
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-md-4 mb-4">
+
+                <!-- Heading -->
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Your cart</span>
+                    <span class="badge badge-secondary badge-pill">@Model.customerOrderProducts.CartItems.Count().ToString()</span>
+                </h4>
+
+                <!-- Cart -->
+                <ul class="list-group mb-3 z-depth-1">
+                    @foreach (var item in Model.customerOrderProducts.CartItems)
+                    {
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0" style="text-overflow:ellipsis;width:150px;">@item.Product_Name</h6>
+                                <small class="text-muted">Quantity : @item.Product_quantity</small>
+                            </div>
+                            <span class="text-muted">OMR @item.Product_Price</span>
+                        </li>
+                    }
+
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>EXAMPLECODE</small>
+                        </div>
+                        <span class="text-success">- OMR 5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (OMR)</span>
+                        <strong>OMR @Model.customerOrderProducts.TotalAmount</strong>
+                    </li>
+                </ul>
+                <!-- Cart -->
+                <!-- Promo code -->
+                <div class="card p-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Promo code" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary btn-md waves-effect m-0" type="button">Redeem</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Promo code -->
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+    </div>
+</main>
+<!--Main layout-->
+<!--Footer-->
+<footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+    <!--Call to action-->
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <!--Copyright-->
+    <!--/.Copyright-->
+
+</footer>
+<!--/.Footer-->
+
+<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300i,400,700&display=swap" rel="stylesheet">
+@section Scripts{
+    <environment include="Staging, Production,Development">
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+            integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA=="
+            crossorigin="anonymous"
+            asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+            asp-fallback-test="window.jQuery"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"
+            integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog=="
+            crossorigin="anonymous"
+            asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+            asp-fallback-test="window.jQuery"></script>
+    </environment>
+}
+    <style type="text/css">
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        label,
+        li,
+        h1,
+        h3,
+        h4,
+        h5,
+        h6,
+        p {
+            color: #000;
+        }
+
+        .row {
+            margin: 0;
+        }
+
+        .form-control::placeholder {
+            color: gray;
+        }
+
+        .form-control {
+            height: 350px;
+            border: none;
+            border-bottom: 1px solid gray;
+            background: none;
+            font-size: 18px;
+            border-radius: 0px;
+            color: #fff;
+        }
+
+            .form-control:active {
+                outline: none;
+                border: none;
+            }
+
+            .form-control:focus {
+                background: none;
+                box-shadow: none;
+                outline: none;
+                border: none;
+                border-bottom: 2px solid #495057;
+                outline: 0;
+            }
+
+            .form-control:hover {
+                border-bottom: 2px solid #495057;
+                outline: none;
+                border-color: none;
+            }
+
+        .container-first {
+            box-shadow: 0 0 10px #fff;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        button {
+            background-color: #495057 !important;
+            border-color: #495057 !important;
+            height: 50px;
+            line-height: 50px;
+            margin-top: 10px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        span.field-validation-error {
+            color: red !important;
+        }
+
+        span #Full_Name-error {
+            color: red !important;
+        }
+
+        .field-validation-valid {
+            color: red !important;
+        }
+
+        .input-validation-error {
+            border: 1px solid #ff0000 !important;
+            background-color: #ffeeee !important;
+        }
+
+    </style>

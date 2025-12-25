@@ -1,0 +1,104 @@
+﻿@using FlipShop.Core.Contract.Administration
+@model Account
+
+<div class="register-photo">
+    <div class="form-container">
+        <div class="image-holder"></div>
+        <form method="post" asp-controller="Signup" asp-area="" asp-action="">
+            <h2 class="text-center"><strong>Create</strong> an account.</h2>
+            @Html.AntiForgeryToken()
+            <div class="form-group"><input class="form-control rounded-3" asp-for="UserName" type="text" name="UserName" placeholder="Full Name"> <span asp-validation-for="UserName" class="text-danger small"></span></div>
+            <div class="form-group"><input class="form-control rounded-3" asp-for="Email" type="email" name="Email" placeholder="Email"> <span asp-validation-for="Email" class="text-danger small"></span></div>
+            <div class="form-group"><input class="form-control rounded-3" asp-for="Password" type="password" name="password" placeholder="Password"> <span asp-validation-for="Password" class="text-danger small"></span></div>
+            <div class="form-group"><input class="form-control rounded-3" asp-for="ConfirmPassword" type="password" name="password-repeat" placeholder="Password (repeat)"> <span asp-validation-for="ConfirmPassword" class="text-danger small"></span></div>
+            <div class="form-group">
+                <div class="form-check"><label class="form-check-label"><input class="form-check-input" type="checkbox">I agree to the license terms.</label></div>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group"><button class="btn btn-dark btn-block" type="submit">Sign Up</button></div>
+            <a asp-action="" asp-controller="SignIn" asp-area="" class="already ml-3"><span class="small text-center text-uppercase" style="font-size:10px;">You already have an account? Login here.</span></a>
+            <div class="form-group">
+                <button type="submit" name="provider" class="btn btn-google btn-block text-white mt-3" style="background-color:#4285F4;"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Signup using Google</button>
+            </div>
+
+
+        </form>
+
+
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <environment include="Staging, Production, Development">
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+            integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+            crossorigin="anonymous"
+            asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+            asp-fallback-test="window.jQuery"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+            integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA=="
+            crossorigin="anonymous"
+            asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.min.js"
+            asp-fallback-test="window.jQuery"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"
+            integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog=="
+            crossorigin="anonymous"
+            asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+            asp-fallback-test="window.jQuery"></script>
+    </environment>
+}
+
+    @section stylesheets{
+    <style>
+        .register-photo {
+            background: #f1f7fc;
+            padding: 80px 0;
+        }
+
+            .register-photo .image-holder {
+                display: table-cell;
+                width: 500px;
+                height: 500px;
+                background: url("https://img.freepik.com/premium-photo/beautiful-asian-woman-carrying-colorful-bags-shopping-online-with-mobile-phone_8087-3877.jpg?w=2000");
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .register-photo .form-container {
+                display: table;
+                max-width: 900px;
+                width: 90%;
+                margin: 0 auto;
+                box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+            }
+
+            .register-photo form {
+                display: table-cell;
+                width: 400px;
+                background-color: #ffffff;
+                padding: 40px 60px;
+                color: #505e6c;
+            }
+
+        span.field-validation-error {
+            color: red !important;
+        }
+
+        span #Full_Name-error {
+            color: red !important;
+        }
+
+        .field-validation-valid {
+            color: red !important;
+        }
+
+        .input-validation-error {
+            border: 1px solid #ff0000 !important;
+            background-color: #ffeeee !important;
+        }
+    </style>
+}

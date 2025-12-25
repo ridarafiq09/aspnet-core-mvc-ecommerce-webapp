@@ -1,0 +1,11 @@
+﻿@model IEnumerable<FlipShop.Core.Contract.CategoryDTO>
+
+<h4>By category:</h4>
+
+@if (Model.Any())
+{
+    foreach (var category in Model)
+    {
+        <a data-ajax="true" asp-action="" asp-controller="GetCategories" asp-route-categoryId="@category.Category_ID">@category.Category_Title</a>
+    }
+}

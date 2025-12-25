@@ -1,0 +1,114 @@
+﻿@using FlipShop.Core.Contract
+@using FlipShop.WebApi.Utilities
+
+@model PaginatedList<FlipShop.Core.Entities.Product>
+@inject FlipShop.Core.Abstractions.Products.IProductRepository productService
+
+@{
+    var categories = await productService.GetCategories();
+}
+<div class="container mt-5">
+    <div class="row">
+        <!-- BEGIN SEARCH RESULT -->
+        <div class="col-md-12">
+            <div class="grid search">
+                <div class="grid-body">
+                    <div class="row">
+                        <!-- BEGIN FILTERS -->
+                        <div class="col-md-3">
+                            <h2 class="grid-title"><i class="fa fa-filter"></i> Filters</h2>
+                            <hr>
+
+                            <!-- BEGIN FILTER BY CATEGORY -->
+                            <partial name="_Category" model="@categories" />
+
+                        </div>
+                        <!-- END FILTERS -->
+                        <!-- BEGIN RESULT -->
+                        <div class="col-md-9">
+                            <h2>
+                                <i class="fa fa-file-o"></i> Result <span class="fw-bold">
+                                    @if (ViewBag.Searchitem != null)
+                                    {
+                                        @ViewBag.Searchitem
+                                    }
+                                </span>
+                            </h2>
+                            <hr>
+
+
+                            <div class="padding"></div>
+
+                            <div class="row">
+                                <!-- BEGIN ORDER RESULT -->
+                                <div class="col-sm-6">
+
+                                    <div class="dropdown">
+                                        <a class="btn btn-light btn-outline-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Order By
+                                        </a>
+
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <li><a asp-action="" asp-area="" asp-controller="Products" class="dropdown-item" asp-route-sortOrder="Name">Name</a></li>
+                                            <li><a asp-action="" asp-area="" asp-controller="Products"  class="dropdown-item" asp-route-sortOrder="priceLowerToHigher">Price (Low to High)</a></li>
+                                            <li><a asp-action="" asp-area="" asp-controller="Products"  class="dropdown-item" asp-route-sortOrder="priceHigherToLower">Price (High to Low)</a></li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <!-- END ORDER RESULT -->
+
+                                <div class="col-md-6 text-right">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default"><i class="fa fa-list"></i></button>
+                                        <button type="button" class="btn btn-default"><i class="fa fa-th"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BEGIN TABLE RESULT -->
+                            <div class="container my-3">
+                                <div class="row justify-content-evenly" id="productsList">
+
+                                    @{
+                                        await Html.RenderPartialAsync("_HomeProductCard", Model);
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- END TABLE RESULT -->
+                            <!-- BEGIN PAGINATION -->
+                            @{
+                                var previousPage = !Model.hasPreviousPage ? "disabled" : "";
+                                var nextPage = !Model.hasNextPage ? "disabled" : "";
+                            }
+                            <div class="text-center">
+                                <a asp-route-sortOrder="@ViewBag.SortOrder"
+                                   asp-route-searchitem="@ViewBag.Searchitem"
+                                   asp-route-pageNo="@(Model.PageIndex - 1)"
+                                   class="@previousPage mr-5"
+                                   asp-action="" asp-controller="products"
+                                   asp-area="">Previous</a>
+
+                                <a asp-route-sortOrder="@ViewBag.SortOrder"
+                                   asp-route-searchitem="@ViewBag.Searchitem"
+                                   asp-route-pageNo="@(Model.PageIndex + 1)"
+                                   class="@nextPage"
+                                   asp-action="" asp-controller="products"
+                                   asp-area="">Next</a>
+                            </div>
+
+
+                        </div>
+                        <!-- END RESULT -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END SEARCH RESULT -->
+    </div>
+</div>
+
+<script src="~/jquery/dist/jquery.js"></script>
+<script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
